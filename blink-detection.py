@@ -12,23 +12,39 @@ while True:
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
     faces = detector(gray)
+
     for face in faces:
         x1 = face.left()
         y1 = face.top()
         x2 = face.right()
         y2 = face.bottom()
-        #cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 3)
 
         landmarks = predictor(gray, face)
+
+        left_eye_coordinates_x = []
+        left_eye_coordinates_y = []
+        right_eye_coordinates_x = []
+        right_eye_coordinates_y = []
 
         for n in range(36, 48):
             x = landmarks.part(n).x
             y = landmarks.part(n).y
-            cv2.circle(frame, (x, y), 4, (255, 0, 0), -1)
 
+            cv2.circle(frame, (x, y), 3, (255, 0, 0), -1)
+
+        #     if n >= 36 and n < 42:
+        #         left_eye_coordinates_x.append(x)
+        #         left_eye_coordinates_y.append(y)
+        #     else:
+        #         right_eye_coordinates_x.append(x)
+        #         right_eye_coordinates_y.append(y)
+
+        # cv2.rectangle(frame, (min(left_eye_coordinates_x), min(left_eye_coordinates_y)), (max(left_eye_coordinates_x), max(left_eye_coordinates_y)), (0, 255, 0), 3)
+        # cv2.rectangle(frame, (min(right_eye_coordinates_x), min(right_eye_coordinates_y)), (max(right_eye_coordinates_x), max(right_eye_coordinates_y)), (0, 255, 0), 3)
 
     cv2.imshow("Frame", frame)
 
     key = cv2.waitKey(1)
+
     if key == 27:
         break
