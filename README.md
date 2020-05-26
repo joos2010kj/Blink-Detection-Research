@@ -1,1 +1,1 @@
-# Blink-Detection-Research
+# Chicken-Behavior-Tracker
